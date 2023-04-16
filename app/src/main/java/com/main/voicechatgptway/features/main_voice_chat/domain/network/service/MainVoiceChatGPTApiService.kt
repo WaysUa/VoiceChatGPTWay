@@ -1,14 +1,14 @@
-package com.main.voicechatgptway.domain.network.service
+package com.main.voicechatgptway.features.main_voice_chat.domain.network.service
 
 import com.main.voicechatgptway.BuildConfig
-import com.main.voicechatgptway.data.entities.ChatCompletionResponse
-import com.main.voicechatgptway.data.entities.ChatGPTApiRequest
+import com.main.voicechatgptway.features.main_voice_chat.data.entities.ChatCompletionResponse
+import com.main.voicechatgptway.features.main_voice_chat.data.entities.ChatGPTApiRequest
 import retrofit2.Call
 import retrofit2.http.Body
 import retrofit2.http.Header
 import retrofit2.http.POST
 
-interface ChatGPTApiService {
+interface MainVoiceChatGPTApiService {
 
     @POST("v1/chat/completions")
     fun sendMessage(

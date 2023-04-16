@@ -2,7 +2,7 @@ package com.main.voicechatgptway.di.component
 
 import com.main.voicechatgptway.di.modules.DomainModule
 import com.main.voicechatgptway.di.modules.PresentationModule
-import com.main.voicechatgptway.presentation.ui.MainActivity
+import com.main.voicechatgptway.features.main_voice_chat.presentation.ui.MainVoiceChatActivity
 import dagger.Component
 
 @Component(modules = [
@@ -10,5 +10,5 @@ import dagger.Component
     DomainModule::class
 ])
 interface MainComponent {
-    fun inject(mainActivity: MainActivity)
+    fun inject(mainVoiceChatActivity: MainVoiceChatActivity)
 }

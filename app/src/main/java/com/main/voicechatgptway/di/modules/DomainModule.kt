@@ -1,6 +1,6 @@
 package com.main.voicechatgptway.di.modules
 
-import com.main.voicechatgptway.domain.network.service.ChatGPTApiService
+import com.main.voicechatgptway.features.main_voice_chat.domain.network.service.MainVoiceChatGPTApiService
 import dagger.Module
 import dagger.Provides
 import retrofit2.Retrofit
@@ -12,15 +12,15 @@ class DomainModule {
     @Provides
     fun provideRetrofit(): Retrofit {
         return Retrofit.Builder()
-            .baseUrl(ChatGPTApiService.BASE_URL)
+            .baseUrl(MainVoiceChatGPTApiService.BASE_URL)
             .addConverterFactory(GsonConverterFactory.create())
             .build()
     }
 
     @Provides
-    fun provideChatGPTApiService(
+    fun provideMainVoiceChatGPTApiService(
         retrofit: Retrofit
-    ): ChatGPTApiService {
-        return retrofit.create(ChatGPTApiService::class.java)
+    ): MainVoiceChatGPTApiService {
+        return retrofit.create(MainVoiceChatGPTApiService::class.java)
     }
 }

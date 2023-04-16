@@ -1,7 +1,7 @@
 package com.main.voicechatgptway.di.modules
 
-import com.main.voicechatgptway.domain.network.service.ChatGPTApiService
-import com.main.voicechatgptway.presentation.viewmodel.MainViewModelFactory
+import com.main.voicechatgptway.features.main_voice_chat.domain.network.service.MainVoiceChatGPTApiService
+import com.main.voicechatgptway.features.main_voice_chat.presentation.viewmodel.MainVoiceChatViewModelFactory
 import dagger.Module
 import dagger.Provides
 
@@ -9,11 +9,11 @@ import dagger.Provides
 class PresentationModule {
 
     @Provides
-    fun provideMainViewModelFactory(
-        chatGPTApiService: ChatGPTApiService
-    ): MainViewModelFactory {
-        return MainViewModelFactory(
-            chatGPTApiService = chatGPTApiService
+    fun provideMainVoiceChatViewModelFactory(
+        mainVoiceChatGPTApiService: MainVoiceChatGPTApiService
+    ): MainVoiceChatViewModelFactory {
+        return MainVoiceChatViewModelFactory(
+            mainVoiceChatGPTApiService = mainVoiceChatGPTApiService
         )
     }
 

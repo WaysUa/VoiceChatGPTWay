@@ -1,4 +1,4 @@
-package com.main.voicechatgptway.presentation.ui
+package com.main.voicechatgptway.features.main_voice_chat.presentation.ui
 
 import android.content.Intent
 import android.os.Bundle
@@ -10,24 +10,24 @@ import androidx.activity.result.contract.ActivityResultContracts
 import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.lifecycleScope
-import com.main.voicechatgptway.data.entities.ChatGPTApiRequest
-import com.main.voicechatgptway.data.entities.ChatGPTMessage
+import com.main.voicechatgptway.features.main_voice_chat.data.entities.ChatGPTApiRequest
+import com.main.voicechatgptway.features.main_voice_chat.data.entities.ChatGPTMessage
 import com.main.voicechatgptway.databinding.ActivityMainBinding
 import com.main.voicechatgptway.di.provider.ProvideMainComponent
-import com.main.voicechatgptway.presentation.viewmodel.MainViewModel
-import com.main.voicechatgptway.presentation.viewmodel.MainViewModelFactory
+import com.main.voicechatgptway.features.main_voice_chat.presentation.viewmodel.MainVoiceChatViewModel
+import com.main.voicechatgptway.features.main_voice_chat.presentation.viewmodel.MainVoiceChatViewModelFactory
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import javax.inject.Inject
 import kotlin.properties.Delegates
 
-class MainActivity : AppCompatActivity() {
+class MainVoiceChatActivity : AppCompatActivity() {
     private val binding by lazy { ActivityMainBinding.inflate(layoutInflater) }
     private var launcher by Delegates.notNull<ActivityResultLauncher<Intent>>()
 
     @Inject
-    lateinit var mainViewModelFactory: MainViewModelFactory
-    private val mainViewModel: MainViewModel by viewModels { mainViewModelFactory }
+    lateinit var mainVoiceChatViewModelFactory: MainVoiceChatViewModelFactory
+    private val mainVoiceChatViewModel: MainVoiceChatViewModel by viewModels { mainVoiceChatViewModelFactory }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -42,7 +42,7 @@ class MainActivity : AppCompatActivity() {
                 messages = listOf(ChatGPTMessage(content = content))
             )
             lifecycleScope.launch(Dispatchers.IO) {
-                val response = mainViewModel.sendMessage(chatGPTApiRequest)
+                val response = mainVoiceChatViewModel.sendMessage(chatGPTApiRequest)
                 Log.d("MyLog", response.toString())
             }
         }
