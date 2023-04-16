@@ -10,9 +10,9 @@ import androidx.activity.result.contract.ActivityResultContracts
 import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.lifecycleScope
+import com.main.voicechatgptway.databinding.ActivityChatVoiceMainBinding
 import com.main.voicechatgptway.features.main_voice_chat.data.entities.ChatGPTApiRequest
 import com.main.voicechatgptway.features.main_voice_chat.data.entities.ChatGPTMessage
-import com.main.voicechatgptway.databinding.ActivityMainBinding
 import com.main.voicechatgptway.di.provider.ProvideMainComponent
 import com.main.voicechatgptway.features.main_voice_chat.presentation.viewmodel.MainVoiceChatViewModel
 import com.main.voicechatgptway.features.main_voice_chat.presentation.viewmodel.MainVoiceChatViewModelFactory
@@ -22,7 +22,7 @@ import javax.inject.Inject
 import kotlin.properties.Delegates
 
 class MainVoiceChatActivity : AppCompatActivity() {
-    private val binding by lazy { ActivityMainBinding.inflate(layoutInflater) }
+    private val binding by lazy { ActivityChatVoiceMainBinding.inflate(layoutInflater) }
     private var launcher by Delegates.notNull<ActivityResultLauncher<Intent>>()
 
     @Inject
