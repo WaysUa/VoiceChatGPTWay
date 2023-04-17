@@ -21,6 +21,7 @@ import com.main.voicechatgptway.features.main_voice_chat.presentation.viewmodel.
 import com.main.voicechatgptway.features.main_voice_chat.presentation.viewmodel.MainVoiceChatViewModelFactory
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
+import kotlinx.coroutines.withContext
 import javax.inject.Inject
 import kotlin.properties.Delegates
 
@@ -37,31 +38,22 @@ class MainVoiceChatActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(binding.root)
         (applicationContext as ProvideMainComponent).provideMainComponent().inject(this)
-
         binding.rvMessages.adapter = mainVoiceChatAdapter
-        mainVoiceChatAdapter.mapAll(
-            listOf(
-                ChatMessage("Hello", MessageType.USER_MESSAGE),
-                ChatMessage("How can i help you?", MessageType.CHAT_GPT_MESSAGE),
-                ChatMessage("How can i help youdsaaaaaaaaaaaaaaaaaaaaaaaaaaaa" +
-                        "fdsffffffffffffffffffffffffffffffffffffff" +
-                        "eqwwwwwwwwwwwwwwwwww?", MessageType.CHAT_GPT_MESSAGE),
-                ChatMessage("How can aAAAAAAAAAAAAi helpdsssssssssssssssssssssssssssaaaaaaaaaaaaaaaaaaaaaaaaaa" +
-                        "fdsffffffffffffffffffffffffffffffffffffff" +
-                        "eqwwwwwwwwwwwwwwwwww?", MessageType.USER_MESSAGE)
-            )
-        )
 
         launcher = registerForActivityResult(ActivityResultContracts.StartActivityForResult()) { result: ActivityResult ->
             if (result.resultCode != RESULT_OK) return@registerForActivityResult
 
             val content = result.data?.getStringArrayListExtra(RecognizerIntent.EXTRA_RESULTS)?.get(0).toString()
+            mainVoiceChatAdapter.map(ChatMessage(message = content, MessageType.USER_MESSAGE))
             val chatGPTApiRequest = ChatGPTApiRequest(
                 messages = listOf(ChatGPTMessage(content = content))
             )
             lifecycleScope.launch(Dispatchers.IO) {
                 val response = mainVoiceChatViewModel.sendMessage(chatGPTApiRequest)
-                Log.d("MyLog", response.toString())
+                withContext(Dispatchers.Main) {
+                    response?.mapToChatMessage()?.let { mainVoiceChatAdapter.map(it) }
+                    binding.rvMessages.scrollToPosition(mainVoiceChatAdapter.itemCount - 1)
+                }
             }
         }
 

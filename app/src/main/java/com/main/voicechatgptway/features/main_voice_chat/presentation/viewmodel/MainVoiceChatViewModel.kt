@@ -4,15 +4,13 @@ import androidx.lifecycle.ViewModel
 import com.main.voicechatgptway.features.main_voice_chat.data.entities.network.ChatCompletionResponse
 import com.main.voicechatgptway.features.main_voice_chat.data.entities.network.ChatGPTApiRequest
 import com.main.voicechatgptway.features.main_voice_chat.domain.network.service.MainVoiceChatGPTApiService
-import retrofit2.await
 
 class MainVoiceChatViewModel(
     private val mainVoiceChatGPTApiService: MainVoiceChatGPTApiService
 ) : ViewModel() {
 
     suspend fun sendMessage(chatGPTApiRequest: ChatGPTApiRequest): ChatCompletionResponse? {
-        val call = mainVoiceChatGPTApiService.sendMessage(chatGPTApiRequest)
-        call?.await()
-        return call?.execute()?.body()
+        val response = mainVoiceChatGPTApiService.sendMessage(chatGPTApiRequest)
+        return response.body()
     }
 }
