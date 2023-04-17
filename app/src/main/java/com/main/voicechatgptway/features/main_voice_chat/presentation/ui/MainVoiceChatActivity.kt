@@ -11,8 +11,8 @@ import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.lifecycleScope
 import com.main.voicechatgptway.databinding.ActivityChatVoiceMainBinding
-import com.main.voicechatgptway.features.main_voice_chat.data.entities.ChatGPTApiRequest
-import com.main.voicechatgptway.features.main_voice_chat.data.entities.ChatGPTMessage
+import com.main.voicechatgptway.features.main_voice_chat.data.entities.network.ChatGPTApiRequest
+import com.main.voicechatgptway.features.main_voice_chat.data.entities.network.ChatGPTMessage
 import com.main.voicechatgptway.di.provider.ProvideMainComponent
 import com.main.voicechatgptway.features.main_voice_chat.presentation.viewmodel.MainVoiceChatViewModel
 import com.main.voicechatgptway.features.main_voice_chat.presentation.viewmodel.MainVoiceChatViewModelFactory

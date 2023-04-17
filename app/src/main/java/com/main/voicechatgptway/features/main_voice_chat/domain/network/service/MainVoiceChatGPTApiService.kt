@@ -1,8 +1,8 @@
 package com.main.voicechatgptway.features.main_voice_chat.domain.network.service
 
 import com.main.voicechatgptway.BuildConfig
-import com.main.voicechatgptway.features.main_voice_chat.data.entities.ChatCompletionResponse
-import com.main.voicechatgptway.features.main_voice_chat.data.entities.ChatGPTApiRequest
+import com.main.voicechatgptway.features.main_voice_chat.data.entities.network.ChatCompletionResponse
+import com.main.voicechatgptway.features.main_voice_chat.data.entities.network.ChatGPTApiRequest
 import retrofit2.Call
 import retrofit2.http.Body
 import retrofit2.http.Header
