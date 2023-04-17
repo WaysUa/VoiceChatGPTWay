@@ -1,3 +1,7 @@
 <resources>
     <string name="app_name">VoiceChatGPTWay</string>
+    <string name="this_is_chatgpt_message">This is chat gpt message</string>
+    <string name="time_example_1">21:00 20.05.2022</string>
+    <string name="this_is_user_message">This is user message</string>
+    <string name="time_example_2">20:01 20.05.2007</string>
 </resources>

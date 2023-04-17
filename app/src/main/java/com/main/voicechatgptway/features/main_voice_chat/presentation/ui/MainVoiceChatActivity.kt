@@ -14,6 +14,9 @@ import com.main.voicechatgptway.databinding.ActivityChatVoiceMainBinding
 import com.main.voicechatgptway.features.main_voice_chat.data.entities.network.ChatGPTApiRequest
 import com.main.voicechatgptway.features.main_voice_chat.data.entities.network.ChatGPTMessage
 import com.main.voicechatgptway.di.provider.ProvideMainComponent
+import com.main.voicechatgptway.features.main_voice_chat.data.entities.local.ChatMessage
+import com.main.voicechatgptway.features.main_voice_chat.data.entities.local.MessageType
+import com.main.voicechatgptway.features.main_voice_chat.presentation.adapter.MainVoiceChatAdapter
 import com.main.voicechatgptway.features.main_voice_chat.presentation.viewmodel.MainVoiceChatViewModel
 import com.main.voicechatgptway.features.main_voice_chat.presentation.viewmodel.MainVoiceChatViewModelFactory
 import kotlinx.coroutines.Dispatchers
@@ -28,11 +31,26 @@ class MainVoiceChatActivity : AppCompatActivity() {
     @Inject
     lateinit var mainVoiceChatViewModelFactory: MainVoiceChatViewModelFactory
     private val mainVoiceChatViewModel: MainVoiceChatViewModel by viewModels { mainVoiceChatViewModelFactory }
+    private val mainVoiceChatAdapter = MainVoiceChatAdapter()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(binding.root)
         (applicationContext as ProvideMainComponent).provideMainComponent().inject(this)
+
+        binding.rvMessages.adapter = mainVoiceChatAdapter
+        mainVoiceChatAdapter.mapAll(
+            listOf(
+                ChatMessage("Hello", MessageType.USER_MESSAGE),
+                ChatMessage("How can i help you?", MessageType.CHAT_GPT_MESSAGE),
+                ChatMessage("How can i help youdsaaaaaaaaaaaaaaaaaaaaaaaaaaaa" +
+                        "fdsffffffffffffffffffffffffffffffffffffff" +
+                        "eqwwwwwwwwwwwwwwwwww?", MessageType.CHAT_GPT_MESSAGE),
+                ChatMessage("How can aAAAAAAAAAAAAi helpdsssssssssssssssssssssssssssaaaaaaaaaaaaaaaaaaaaaaaaaa" +
+                        "fdsffffffffffffffffffffffffffffffffffffff" +
+                        "eqwwwwwwwwwwwwwwwwww?", MessageType.USER_MESSAGE)
+            )
+        )
 
         launcher = registerForActivityResult(ActivityResultContracts.StartActivityForResult()) { result: ActivityResult ->
             if (result.resultCode != RESULT_OK) return@registerForActivityResult

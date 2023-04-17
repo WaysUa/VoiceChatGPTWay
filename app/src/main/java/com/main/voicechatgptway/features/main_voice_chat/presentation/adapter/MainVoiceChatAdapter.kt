@@ -1,5 +1,6 @@
 package com.main.voicechatgptway.features.main_voice_chat.presentation.adapter
 
+import android.annotation.SuppressLint
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -10,8 +11,9 @@ import com.main.voicechatgptway.databinding.ItemChatgptMessageBinding
 import com.main.voicechatgptway.databinding.ItemUserMessageBinding
 import com.main.voicechatgptway.features.main_voice_chat.data.entities.local.ChatMessage
 import com.main.voicechatgptway.features.main_voice_chat.data.entities.local.MessageType
+import com.main.voicechatgptway.features.main_voice_chat.domain.mapper.MainVoiceChatAdapterMapper
 
-class MainVoiceChatAdapter : RecyclerView.Adapter<MainVoiceChatAdapter.MainVoiceChatViewHolder>() {
+class MainVoiceChatAdapter : RecyclerView.Adapter<MainVoiceChatAdapter.MainVoiceChatViewHolder>(), MainVoiceChatAdapterMapper {
     private val messages = mutableListOf<ChatMessage>()
 
     class MainVoiceChatViewHolder(view: View): ViewHolder(view) {
@@ -20,10 +22,10 @@ class MainVoiceChatAdapter : RecyclerView.Adapter<MainVoiceChatAdapter.MainVoice
 
         fun bind(chatMessage: ChatMessage) {
             if (chatMessage.messageType == MessageType.USER_MESSAGE) {
-
+                userMessageBinding.tvMessage.text = chatMessage.message
             }
             if (chatMessage.messageType == MessageType.CHAT_GPT_MESSAGE) {
-
+                chatGptMessageBinding.tvMessage.text = chatMessage.message
             }
         }
     }
@@ -51,4 +53,16 @@ class MainVoiceChatAdapter : RecyclerView.Adapter<MainVoiceChatAdapter.MainVoice
     }
 
     override fun getItemCount() = messages.size
+
+    @SuppressLint("NotifyDataSetChanged")
+    override fun map(chatMessage: ChatMessage) {
+        messages.add(chatMessage)
+        notifyDataSetChanged()
+    }
+
+    @SuppressLint("NotifyDataSetChanged")
+    override fun mapAll(newMessages: List<ChatMessage>) {
+        messages.addAll(newMessages)
+        notifyDataSetChanged()
+    }
 }
